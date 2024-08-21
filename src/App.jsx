@@ -11,12 +11,14 @@ import ActivateEmail from "./routes/activate-email"
 import PasswordResetConfirm from "./routes/pasword-reset-confirm"
 import { PrivateRoutes } from "./components/utils"
 
-import { useRetrieveEmployeeQuery } from "./redux/features/salaryApiSlice"
+import { useRetrieveEmployeeQuery, useRetrieveUploadLogsQuery } from "./redux/features/salaryApiSlice"
 
 function App() {
 
   // eslint-disable-next-line no-unused-vars
   const { data: employees, isFetching, refetch } = useRetrieveEmployeeQuery();
+  // eslint-disable-next-line no-unused-vars
+  const { data: uploadLogs, isFetching: isFetchingLogs, refetch: refetchLogs } = useRetrieveUploadLogsQuery(); 
 
   return (
     <BrowserRouter>
@@ -37,6 +39,7 @@ function App() {
             <Route path="home" element={<Home />} />
             <Route path="employee" element={<TableData data={employees} />} />
             <Route path="salary-slip" element={<SalarySlip />} />
+            <Route path="uploads" element={<TableData data={uploadLogs} />} />
           </Route>
         </Route>
       </Routes>

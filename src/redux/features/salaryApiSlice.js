@@ -11,6 +11,9 @@ const salaryApiSlice = apiSlice.injectEndpoints({
 		retrieveNotification: builder.query({
 			query: () => '/api/notification/',
 		}),
+		retrieveUploadLogs: builder.query({
+			query: () => '/api/upload-log/',
+		}),
 		markNotificationRead: builder.mutation({
 			query: () => ({
 				url: `/api/notifications-read/`,
@@ -44,6 +47,7 @@ export const {
     useRetrieveEmployeeQuery,
 	useRetrieveSalarySlipQuery,
 	useRetrieveNotificationQuery,
+	useRetrieveUploadLogsQuery,
 	useMarkNotificationReadMutation,
     useAddEmployeeMutation,
 	useDeleteEmployeeMutation,

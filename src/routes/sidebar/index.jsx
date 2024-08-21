@@ -30,6 +30,7 @@ import {
   FiChevronDown,
   FiUser,
   FiHome,
+  FiUpload,
 } from 'react-icons/fi'
 import { Outlet, useNavigate } from "react-router-dom"
 import { useRetrieveNotificationQuery, useMarkNotificationReadMutation } from "../../redux/features/salaryApiSlice"
@@ -38,6 +39,7 @@ const LinkItems = [
   { name: 'Home', icon: FiHome, route: '/dashboard/home' },
   { name: 'Employees', icon: FiUser, route: '/dashboard/employee' },
   { name: 'Salary Slips', icon: FiTrendingUp, route: '/dashboard/salary-slip' },
+  { name: 'Uploads', icon: FiUpload, route: '/dashboard/uploads' },
   // { name: 'Favourites', icon: FiStar },
   // { name: 'Settings', icon: FiSettings },
 ]
