@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
+'use client'
 import logo from "/unikrew-logo.png"
-import { useEffect, useState } from "react"
 import {
   IconButton,
   Avatar,
@@ -20,8 +19,6 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
-  Spinner,
-  Badge
 } from '@chakra-ui/react'
 import {
   FiTrendingUp,
@@ -32,7 +29,6 @@ import {
   FiHome,
 } from 'react-icons/fi'
 import { Outlet, useNavigate } from "react-router-dom"
-import { useRetrieveNotificationQuery, useMarkNotificationReadMutation } from "../../redux/features/salaryApiSlice"
 
 const LinkItems = [
   { name: 'Home', icon: FiHome, route: '/dashboard/home' },
@@ -75,7 +71,7 @@ const NavItem = ({ icon, route, children, ...rest }) => {
   return (
     <Box
       as="a"
-      onClick={() => { navigate(route) }}
+      onClick={() => {navigate(route)}}
       style={{ textDecoration: 'none' }}
       _focus={{ boxShadow: 'none' }}>
       <Flex
@@ -108,16 +104,6 @@ const NavItem = ({ icon, route, children, ...rest }) => {
 
 // eslint-disable-next-line react/prop-types
 const MobileNav = ({ onOpen, ...rest }) => {
-  const { data: notifications, isFetching, refetch } = useRetrieveNotificationQuery();
-  const [markNotificationRead] = useMarkNotificationReadMutation()
-  const [unreadCount, setUnreadCount] = useState(0)
-
-  useEffect(() => {
-    if (!isFetching && notifications) {
-      setUnreadCount(notifications.filter(notification => !notification.read).length)
-    }
-  }, [notifications])
-
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -146,59 +132,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
       </Text>
 
       <HStack spacing={{ base: '0', md: '6' }}>
-        <Menu>
-          <MenuButton
-            as={IconButton}
-            size="lg"
-            variant="ghost"
-            aria-label="open menu"
-            icon={
-              <Box position="relative">
-                <FiBell />
-                {unreadCount > 0 && (
-                  <Badge
-                    colorScheme="red"
-                    position="absolute"
-                    top="-2.5"
-                    right="-2.5"
-                    borderRadius="full"
-                    fontSize="0.7em"
-                  >
-                    {unreadCount}
-                  </Badge>
-                )}
-              </Box>
-            }
-            position="relative"
-            onClick={() => { if (unreadCount > 0) { markNotificationRead() } }}
-          >
-          </MenuButton>
-          <MenuList
-            bg={useColorModeValue('white', 'gray.900')}
-            borderColor={useColorModeValue('gray.200', 'gray.700')}
-            maxHeight="300px"
-            overflowY="auto">
-            <Text fontWeight="bold" px="4" py="2">Notifications</Text>
-            <MenuDivider />
-            {isFetching ? (
-              <Spinner size="lg" alignSelf="center" m="4" />
-            ) : notifications.length === 0 ? (
-              <Text px="4" py="2">No new notifications</Text>
-            ) : (
-              notifications.map(notification => (
-                <MenuItem key={notification.id}>
-                  <VStack align="flex-start" spacing="1px">
-                    <Text fontSize="sm">{notification.message}</Text>
-                    <Text fontSize="xs" color="gray.500">
-                      {new Date(notification.created_at).toLocaleString()}
-                    </Text>
-                  </VStack>
-                </MenuItem>
-              ))
-            )}
-          </MenuList>
-        </Menu>
-
+        <IconButton size="lg" variant="ghost" aria-label="open menu" icon={<FiBell />} />
         <Flex alignItems={'center'}>
           <Menu>
             <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: 'none' }}>
